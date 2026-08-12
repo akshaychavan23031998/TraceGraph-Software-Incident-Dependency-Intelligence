@@ -2,7 +2,7 @@ import "server-only";
 
 import neo4j, { type Driver } from "neo4j-driver";
 
-import { getDatabaseEnvironment } from "@/lib/config/env";
+import { createDatabaseDriver } from "@/lib/db/create-driver";
 import { DatabaseError } from "@/lib/errors/database-error";
 
 const globalForNeo4j = globalThis as typeof globalThis & {
@@ -11,11 +11,7 @@ const globalForNeo4j = globalThis as typeof globalThis & {
 
 export const getDatabaseDriver = (): Driver => {
   if (!globalForNeo4j.neo4jDriver) {
-    const { uri, username, password } = getDatabaseEnvironment();
-    globalForNeo4j.neo4jDriver = neo4j.driver(
-      uri,
-      neo4j.auth.basic(username, password),
-    );
+    globalForNeo4j.neo4jDriver = createDatabaseDriver();
   }
 
   return globalForNeo4j.neo4jDriver;

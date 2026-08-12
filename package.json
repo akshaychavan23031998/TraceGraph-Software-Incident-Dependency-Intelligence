@@ -6,7 +6,10 @@
     "dev": "node ./node_modules/next/dist/bin/next dev",
     "build": "node ./node_modules/next/dist/bin/next build",
     "start": "node ./node_modules/next/dist/bin/next start",
-    "lint": "node ./node_modules/eslint/bin/eslint.js ."
+    "lint": "node ./node_modules/eslint/bin/eslint.js .",
+    "db:seed": "node --env-file=.env.local --import tsx scripts/seed.ts",
+    "db:clear": "node --env-file=.env.local --import tsx scripts/clear-db.ts",
+    "db:verify": "node --env-file=.env.local --import tsx scripts/verify-seed.ts"
   },
   "dependencies": {
     "neo4j-driver": "^6.2.0",
@@ -22,6 +25,7 @@
     "eslint": "^9.39.5",
     "eslint-config-next": "^16.3.0",
     "tailwindcss": "^4.3.3",
+    "tsx": "^4.23.12",
     "typescript": "^6.0.3"
   }
 }
