@@ -120,4 +120,8 @@ TraceGraph now includes a responsive application shell with desktop sidebar and 
 
 The Service Explorer provides a searchable production-service catalog with client-side criticality filtering and live result counts. Each service links to a detail experience that shows ownership, direct dependencies and dependents, selectable multi-hop dependency paths, a blast-radius preview, and engineers with relevant incident-resolution experience. All UI data comes from the existing typed API routes; the frontend does not query CognoDB directly.
 
+## Incident Investigation
+
+The Incident Explorer provides a searchable catalog with severity and status filters. Incident detail pages connect the recorded summary and timeline to affected services and their owners, a triggering deployment when present, resolver engineers, and response runbooks. A compact investigation-context chain makes these graph relationships visible without introducing a graph-canvas dependency, and affected services link directly into the Service Explorer.
+
 > The full graph data model, Cypher query documentation, architecture diagrams, screenshots, deployment instructions, and assignment rationale will be added as the project evolves.

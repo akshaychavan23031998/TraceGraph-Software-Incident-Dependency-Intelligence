@@ -1,0 +1,8 @@
+import { GitCommitHorizontal } from "lucide-react";
+import { formatDateTime } from "@/lib/format-date";
+import type { Deployment } from "@/types/graph";
+
+export function IncidentDeployment({ deployment }: { deployment: Deployment | null }) {
+  return <section className="panel h-full"><h2 className="text-base font-semibold text-white">Triggering Deployment</h2><p className="mt-1 text-xs text-slate-500">Release activity linked to the incident.</p>{deployment ? <div className="deployment-card mt-5"><div className="flex items-start gap-3"><span className="relationship-icon"><GitCommitHorizontal aria-hidden="true" size={17} /></span><div className="min-w-0"><p className="font-mono text-[10px] text-slate-600">{deployment.id.toUpperCase()}</p><h3 className="mt-1 truncate text-sm font-medium text-slate-100">{deployment.version}</h3></div></div><dl className="mt-5 grid grid-cols-2 gap-4 border-t border-slate-800 pt-4 text-xs"><div><dt className="text-slate-600">Deployed</dt><dd className="mt-1 text-slate-400">{formatDateTime(deployment.deployedAt)}</dd></div><div><dt className="text-slate-600">Status</dt><dd className="mt-1 font-medium text-slate-300">{deployment.status.replace("_", " ")}</dd></div></dl><div className="mt-5 flex items-center gap-2 text-[10px] font-semibold uppercase tracking-wider text-rose-300"><span className="h-px flex-1 bg-rose-400/15" /><span>Triggered incident</span><span aria-hidden="true">↓</span><span className="h-px flex-1 bg-rose-400/15" /></div></div> : <div className="mt-5 rounded-lg border border-dashed border-slate-700/70 p-5 text-sm leading-6 text-slate-500">No triggering deployment is linked to this incident.</div>}</section>;
+}
+
