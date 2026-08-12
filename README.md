@@ -116,4 +116,8 @@ curl http://localhost:3000/api/services/svc-payment/experts
 
 TraceGraph now includes a responsive application shell with desktop sidebar and compact mobile navigation. The Overview dashboard loads real service, incident, and CognoDB health data from the existing API routes to display service criticality metrics, current incident status, critical services, recent incidents, and graph-intelligence capabilities. Reusable skeleton loading, empty, retryable error, severity, status, and criticality components provide consistent states across the interface. Service Explorer, Incident Investigator, and Path Finder routes are reserved with small placeholders for later phases.
 
+## Service Explorer
+
+The Service Explorer provides a searchable production-service catalog with client-side criticality filtering and live result counts. Each service links to a detail experience that shows ownership, direct dependencies and dependents, selectable multi-hop dependency paths, a blast-radius preview, and engineers with relevant incident-resolution experience. All UI data comes from the existing typed API routes; the frontend does not query CognoDB directly.
+
 > The full graph data model, Cypher query documentation, architecture diagrams, screenshots, deployment instructions, and assignment rationale will be added as the project evolves.
