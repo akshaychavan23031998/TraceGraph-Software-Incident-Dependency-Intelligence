@@ -16,6 +16,7 @@ export function DependencyPaths({ serviceId }: { serviceId: string }) {
   const [loading, setLoading] = useState(true);
   const [failed, setFailed] = useState(false);
   const [expanded, setExpanded] = useState(false);
+  const [retryKey, setRetryKey] = useState(0);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -24,7 +25,7 @@ export function DependencyPaths({ serviceId }: { serviceId: string }) {
       .catch((error: unknown) => { if (!(error instanceof DOMException && error.name === "AbortError")) setFailed(true); })
       .finally(() => { if (!controller.signal.aborted) setLoading(false); });
     return () => controller.abort();
-  }, [depth, serviceId]);
+  }, [depth, retryKey, serviceId]);
 
   const paths = data?.paths ?? [];
   const visiblePaths = expanded ? paths : paths.slice(0, 10);
@@ -47,7 +48,7 @@ export function DependencyPaths({ serviceId }: { serviceId: string }) {
         </div>
       </div>
       <div className="mt-5 min-h-36" aria-live="polite">
-        {loading ? <PathSkeleton /> : failed ? <div className="section-error">Unable to load dependency paths. Select a depth to try again.</div> : paths.length === 0 ? <EmptyState title="No dependency paths" description="This service does not depend on other services within the selected depth." /> : (
+        {loading ? <PathSkeleton /> : failed ? <div className="section-error"><p>Unable to load dependency paths right now.</p><button type="button" className="secondary-button mt-3" onClick={() => { setFailed(false); setLoading(true); setRetryKey((value) => value + 1); }}>Try again</button></div> : paths.length === 0 ? <EmptyState title="No dependency paths" description="This service does not depend on other services within the selected depth." /> : (
           <div className="space-y-2">
             {visiblePaths.map((path, index) => (
               <article className="path-row" key={`${path.nodes.map((node) => node.id).join("-")}-${index}`}>

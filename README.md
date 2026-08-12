@@ -114,7 +114,7 @@ curl http://localhost:3000/api/services/svc-payment/experts
 
 ## Current UI
 
-TraceGraph now includes a responsive application shell with desktop sidebar and compact mobile navigation. The Overview dashboard loads real service, incident, and CognoDB health data from the existing API routes to display service criticality metrics, current incident status, critical services, recent incidents, and graph-intelligence capabilities. Reusable skeleton loading, empty, retryable error, severity, status, and criticality components provide consistent states across the interface. Service Explorer, Incident Investigator, and Path Finder routes are reserved with small placeholders for later phases.
+TraceGraph includes a responsive application shell with desktop sidebar and compact mobile navigation. The Overview dashboard loads real service, incident, and CognoDB health data from the existing API routes to display service criticality metrics, current incident status, critical services, recent incidents, and graph-intelligence capabilities. Reusable skeleton loading, empty, retryable error, severity, status, and criticality components provide consistent states across the interface.
 
 ## Service Explorer
 
@@ -131,5 +131,7 @@ The Graph Explorer provides direction-aware shortest dependency path finding wit
 ## Interactive Topology
 
 The Service Topology visualizes production services as compact criticality-aware nodes and `DEPENDS_ON` relationships as directed edges. It provides zoom, pan, and fit controls, deterministic layout, name search, node selection, direct-neighbor and edge highlighting, textual relationship counts, and links back to full Service Detail pages. The topology intentionally excludes incidents and organizational nodes to keep the dependency map readable.
+
+Core application functionality is complete and production-readiness verification has passed.
 
 > The full graph data model, Cypher query documentation, architecture diagrams, screenshots, deployment instructions, and assignment rationale will be added as the project evolves.

@@ -47,7 +47,7 @@ export function ServiceDetail({ serviceId }: { serviceId: string }) {
 
   if (loading) return <ServiceDetailSkeleton />;
   if (missing) return <NotFound />;
-  if (failed || !data) return <ErrorState retry={() => void load()} />;
+  if (failed || !data) return <ErrorState retry={() => void load()} title="Unable to load service data" description="TraceGraph could not retrieve this service and its relationships right now." />;
 
   const { service, team, dependencies, dependents } = data.details;
   return (

@@ -26,7 +26,7 @@ export function ServiceExplorer() {
   }, []);
 
   if (loading) return <ServiceListSkeleton />;
-  if (failed) return <ErrorState retry={() => void load()} />;
+  if (failed) return <ErrorState retry={() => void load()} title="Unable to load services" description="TraceGraph could not retrieve the service catalog right now." />;
   return <ServiceList services={services} />;
 }
 

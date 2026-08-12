@@ -26,7 +26,7 @@ export function IncidentDetail({ incidentId }: { incidentId: string }) {
 
   if (loading) return <IncidentDetailSkeleton />;
   if (missing) return <IncidentNotFound />;
-  if (failed || !data) return <ErrorState retry={() => void load()} />;
+  if (failed || !data) return <ErrorState retry={() => void load()} title="Unable to load incident data" description="TraceGraph could not retrieve this investigation right now." />;
 
   const { incident, affectedServices, triggeringDeployment, resolvers, runbooks } = data;
   return <div className="space-y-6">

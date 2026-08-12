@@ -13,7 +13,7 @@ export function IncidentExplorer() {
   const load = async () => { setLoading(true); setFailed(false); try { setIncidents(await fetchApi<Incident[]>("/api/incidents")); } catch { setFailed(true); } finally { setLoading(false); } };
   useEffect(() => { const controller = new AbortController(); fetchApi<Incident[]>("/api/incidents", controller.signal).then(setIncidents).catch((error: unknown) => { if (!(error instanceof DOMException && error.name === "AbortError")) setFailed(true); }).finally(() => { if (!controller.signal.aborted) setLoading(false); }); return () => controller.abort(); }, []);
   if (loading) return <IncidentListSkeleton />;
-  if (failed) return <ErrorState retry={() => void load()} />;
+  if (failed) return <ErrorState retry={() => void load()} title="Unable to load incidents" description="TraceGraph could not retrieve the incident catalog right now." />;
   return <IncidentList incidents={incidents} />;
 }
 

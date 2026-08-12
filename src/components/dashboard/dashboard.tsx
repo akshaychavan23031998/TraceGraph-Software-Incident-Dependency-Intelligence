@@ -1,6 +1,6 @@
 "use client";
 
-import { AlertTriangle, CheckCircle2, GitBranch, Network, Route, Share2, ShieldAlert } from "lucide-react";
+import { AlertTriangle, CheckCircle2, GitBranch, Network, Route, Share2, ShieldAlert, Users } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -141,10 +141,11 @@ export function Dashboard() {
 
           <section aria-labelledby="graph-intelligence-heading">
             <SectionHeader title="Graph Intelligence" description="Operational answers powered by connected system context" />
-            <div className="mt-4 grid gap-3 md:grid-cols-3">
+            <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
               <CapabilityCard title="Service Topology" description="Explore the complete directed dependency map and inspect connected services." icon={Share2} href="/topology" />
               <CapabilityCard title="Dependency Paths" description="Trace multi-hop relationships and find the shortest path between systems." icon={Route} href="/paths" />
               <CapabilityCard title="Blast Radius" description="Identify every upstream service that could be impacted by a dependency failure." icon={GitBranch} href="/paths" />
+              <CapabilityCard title="Incident Experts" description="Find engineers with prior resolution experience across nearby services." icon={Users} href="/services" />
             </div>
           </section>
         </div>
