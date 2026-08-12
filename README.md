@@ -90,4 +90,26 @@ npm run db:clear
 
 This command is destructive and is never called during application startup or seeding.
 
+## Main Graph Queries
+
+- **Service detail** (`GET /api/services/:id`) returns ownership plus direct dependencies and dependents, showing how operational context connects around one service.
+- **Multi-hop dependencies** (`GET /api/services/:id/dependencies?maxDepth=4`) traverses `DEPENDS_ON` paths up to a validated depth. Cypher path bounds cannot be query parameters, so `maxDepth` is accepted only as the typed set `1 | 2 | 3 | 4 | 5 | 6` before that internal value is inserted into query syntax; service IDs remain parameters.
+- **Blast radius** (`GET /api/services/:id/blast-radius`) reverses dependency traversal to find every upstream service that can be affected by a failed dependency, returning the nearest hop distance.
+- **Dependency path** (`GET /api/paths?from=:serviceId&to=:serviceId`) searches paths up to eight hops and returns the shortest result. The application uses bounded portable openCypher rather than APOC or graph plugins.
+- **Incident investigation** (`GET /api/incidents/:id`) connects an incident to affected services and owners, its triggering deployment, resolvers, and runbooks.
+- **Expert finder** (`GET /api/services/:id/experts`) traverses nearby services, their incidents, and resolving engineers, ranking responders by relevant incident count.
+
+Blast-radius analysis is graph-native because dependency impact expands recursively through an unknown number of upstream services. Expert discovery similarly crosses services, incidents, responders, and nearby dependencies; both would require recursive queries and several joins in a relational model.
+
+All endpoints return plain JSON in either `{ "data": ... }` or `{ "error": { "code": ..., "message": ... } }` form. Example checks with the seeded IDs:
+
+```bash
+curl http://localhost:3000/api/services
+curl http://localhost:3000/api/services/svc-api-gateway/dependencies?maxDepth=4
+curl http://localhost:3000/api/services/svc-postgres/blast-radius
+curl "http://localhost:3000/api/paths?from=svc-api-gateway&to=svc-postgres"
+curl http://localhost:3000/api/incidents/inc-003
+curl http://localhost:3000/api/services/svc-payment/experts
+```
+
 > The full graph data model, Cypher query documentation, architecture diagrams, screenshots, deployment instructions, and assignment rationale will be added as the project evolves.
