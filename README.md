@@ -124,4 +124,8 @@ The Service Explorer provides a searchable production-service catalog with clien
 
 The Incident Explorer provides a searchable catalog with severity and status filters. Incident detail pages connect the recorded summary and timeline to affected services and their owners, a triggering deployment when present, resolver engineers, and response runbooks. A compact investigation-context chain makes these graph relationships visible without introducing a graph-canvas dependency, and affected services link directly into the Service Explorer.
 
+## Graph Explorer
+
+The Graph Explorer provides direction-aware shortest dependency path finding with explicit no-path handling, plus reverse-traversal blast-radius analysis grouped by hop distance. Path Finder follows `DEPENDS_ON` relationships forward, while Blast Radius traverses them in reverse to identify upstream consumers that may be impacted. Both workflows link graph results back to Service Detail pages and use the existing API layer without duplicating database queries in the frontend.
+
 > The full graph data model, Cypher query documentation, architecture diagrams, screenshots, deployment instructions, and assignment rationale will be added as the project evolves.
