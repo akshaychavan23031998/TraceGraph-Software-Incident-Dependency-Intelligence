@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "@xyflow/react/dist/style.css";
 
 :root { color-scheme: dark; --background: #080b10; --panel: #0e131b; --border: #202936; }
 * { box-sizing: border-box; }
@@ -131,6 +132,32 @@ button { font: inherit; }
 .hop-group { border: 1px solid rgba(51,65,85,.5); border-radius: .6rem; background: rgba(8,12,18,.35); padding: .9rem; }
 .impact-service-link { display: flex; align-items: center; justify-content: space-between; gap: .7rem; border-radius: .4rem; padding: .55rem .6rem; color: #a8b3c3; font-size: .72rem; }
 .impact-service-link:hover { background: rgba(30,41,59,.45); color: #5eead4; }
+.topology-layout { display: grid; gap: 1rem; }
+.topology-canvas { height: clamp(34rem, 68vh, 46rem); overflow: hidden; border: 1px solid rgba(51,65,85,.65); border-radius: .75rem; background: #0a0f16; }
+.topology-details { min-height: 20rem; }
+.topology-node { width: 184px; border: 1px solid #344154; border-left: 3px solid #64748b; border-radius: .55rem; background: #111822; padding: .7rem .75rem; box-shadow: 0 6px 18px rgba(0,0,0,.18); transition: opacity .15s, border-color .15s, box-shadow .15s; }
+.topology-node[data-criticality="CRITICAL"] { border-left-color: #fb7185; }
+.topology-node[data-criticality="HIGH"] { border-left-color: #fb923c; }
+.topology-node[data-criticality="MEDIUM"] { border-left-color: #facc15; }
+.topology-node[data-criticality="LOW"] { border-left-color: #60a5fa; }
+.topology-node[data-dimmed="true"] { opacity: .22; }
+.topology-node[data-emphasized="true"] { border-color: #5eead4; box-shadow: 0 0 0 2px rgba(45,212,191,.13), 0 8px 22px rgba(0,0,0,.3); }
+.topology-criticality { font-size: .48rem; font-weight: 800; letter-spacing: .05em; color: #94a3b8; }
+.topology-handle { width: 6px !important; height: 6px !important; border: 1px solid #5eead4 !important; background: #0f766e !important; }
+.topology-count { border: 1px solid rgba(51,65,85,.55); border-radius: .55rem; background: rgba(8,12,18,.45); padding: .8rem; }
+.topology-legend { display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem; border: 1px solid rgba(51,65,85,.55); border-radius: .6rem; background: rgba(14,19,27,.8); padding: .85rem 1rem; }
+.legend-item { display: inline-flex; align-items: center; gap: .35rem; font-size: .52rem; font-weight: 700; color: #7c899b; }
+.legend-item span { width: .5rem; height: .5rem; border-radius: 2px; background: #64748b; }
+.legend-item[data-criticality="CRITICAL"] span { background: #fb7185; }.legend-item[data-criticality="HIGH"] span { background: #fb923c; }.legend-item[data-criticality="MEDIUM"] span { background: #facc15; }.legend-item[data-criticality="LOW"] span { background: #60a5fa; }
+.topology-search-results { position: absolute; inset: calc(100% + .35rem) 0 auto 0; z-index: 20; overflow: hidden; border: 1px solid #293445; border-radius: .55rem; background: #0d131c; box-shadow: 0 14px 30px rgba(0,0,0,.35); }
+.topology-search-results button { display: flex; width: 100%; justify-content: space-between; gap: 1rem; padding: .6rem .75rem; color: #cbd5e1; font-size: .72rem; text-align: left; }
+.topology-search-results button:hover, .topology-search-results button:focus-visible { background: rgba(45,212,191,.08); outline: none; }
+.topology-search-results button span:last-child { color: #526174; font-size: .55rem; font-weight: 700; }
+.topology-search-results p { padding: .8rem; color: #64748b; font-size: .72rem; }
+.topology-loading { height: clamp(34rem, 68vh, 46rem); }
+.react-flow__controls { overflow: hidden; border: 1px solid #334155 !important; border-radius: .45rem !important; box-shadow: none !important; }
+.react-flow__controls-button { border-bottom-color: #334155 !important; background: #111822 !important; fill: #cbd5e1 !important; }
+.react-flow__controls-button:hover { background: #1e293b !important; }
 .skeleton { background: linear-gradient(90deg, #101720 25%, #18212c 50%, #101720 75%); background-size: 200% 100%; animation: skeleton 1.5s ease-in-out infinite; }
 @keyframes skeleton { to { background-position: -200% 0; } }
 @media (max-width: 639px) { .panel { padding: 1rem; } .incident-row { align-items: flex-start; flex-direction: column; gap: .4rem; } .incident-row time { text-align: left; } }
@@ -140,4 +167,6 @@ button { font: inherit; }
 @media (max-width: 639px) { .timeline-entry { grid-template-columns: 1fr; gap: .35rem; padding-left: 1rem; } }
 @media (max-width: 767px) { .path-chain { flex-direction: column; align-items: stretch; } .path-chain-item { flex-direction: column; align-items: stretch; } .path-arrow { width: 100%; height: 2rem; } .blast-summary { padding: 1rem; } }
 @media (min-width: 768px) { .blast-summary { grid-template-columns: minmax(0,1fr) minmax(24rem,1.1fr); align-items: center; padding: 1.5rem; } }
+@media (min-width: 1280px) { .topology-layout { grid-template-columns: minmax(0,1fr) 19rem; } .topology-legend { flex-direction: row; align-items: center; justify-content: space-between; } }
+@media (max-width: 639px) { .topology-canvas, .topology-loading { height: 30rem; } }
 @media (prefers-reduced-motion: reduce) { .skeleton { animation: none; } }

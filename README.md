@@ -128,4 +128,8 @@ The Incident Explorer provides a searchable catalog with severity and status fil
 
 The Graph Explorer provides direction-aware shortest dependency path finding with explicit no-path handling, plus reverse-traversal blast-radius analysis grouped by hop distance. Path Finder follows `DEPENDS_ON` relationships forward, while Blast Radius traverses them in reverse to identify upstream consumers that may be impacted. Both workflows link graph results back to Service Detail pages and use the existing API layer without duplicating database queries in the frontend.
 
+## Interactive Topology
+
+The Service Topology visualizes production services as compact criticality-aware nodes and `DEPENDS_ON` relationships as directed edges. It provides zoom, pan, and fit controls, deterministic layout, name search, node selection, direct-neighbor and edge highlighting, textual relationship counts, and links back to full Service Detail pages. The topology intentionally excludes incidents and organizational nodes to keep the dependency map readable.
+
 > The full graph data model, Cypher query documentation, architecture diagrams, screenshots, deployment instructions, and assignment rationale will be added as the project evolves.

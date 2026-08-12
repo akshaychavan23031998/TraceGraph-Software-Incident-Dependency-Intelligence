@@ -65,6 +65,23 @@ export interface ServiceExperts {
   experts: ServiceExpert[];
 }
 
+export type TopologyNode = Pick<
+  Service,
+  "id" | "name" | "description" | "criticality" | "language" | "environment"
+>;
+
+export interface TopologyEdge {
+  source: string;
+  target: string;
+  dependencyType: "SYNC" | "ASYNC" | "DATA";
+  critical: boolean;
+}
+
+export interface ServiceTopology {
+  nodes: TopologyNode[];
+  edges: TopologyEdge[];
+}
+
 export interface ApiSuccess<T> {
   data: T;
 }
@@ -75,4 +92,3 @@ export interface ApiError {
     message: string;
   };
 }
-

@@ -11,6 +11,7 @@ import type {
   ServiceDetails,
   ServiceExperts,
   ServiceReference,
+  ServiceTopology,
 } from "@/types/api";
 import type { Service } from "@/types/graph";
 
@@ -19,6 +20,10 @@ export class ServiceGraphService {
 
   listServices(): Promise<Service[]> {
     return this.repository.list();
+  }
+
+  getTopology(): Promise<ServiceTopology> {
+    return this.repository.getTopology();
   }
 
   getServiceDetails(serviceId: string): Promise<ServiceDetails | null> {
@@ -112,4 +117,3 @@ export class ServiceGraphService {
     };
   }
 }
-

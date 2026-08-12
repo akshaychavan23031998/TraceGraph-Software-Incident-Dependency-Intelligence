@@ -1,6 +1,6 @@
 "use client";
 
-import { Activity, GitBranch, Menu, Network, Route, X } from "lucide-react";
+import { Activity, GitBranch, Menu, Network, Route, Share2, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -10,6 +10,7 @@ const navigation = [
   { href: "/services", label: "Services", icon: Network },
   { href: "/incidents", label: "Incidents", icon: GitBranch },
   { href: "/paths", label: "Path Finder", icon: Route },
+  { href: "/topology", label: "Topology", icon: Share2 },
 ];
 
 export function AppShell({ children }: Readonly<{ children: React.ReactNode }>) {
@@ -89,4 +90,3 @@ function Brand({ compact = false }: { compact?: boolean }) {
     </Link>
   );
 }
-

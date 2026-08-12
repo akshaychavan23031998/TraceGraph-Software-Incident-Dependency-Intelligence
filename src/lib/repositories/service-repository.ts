@@ -11,6 +11,7 @@ import type {
   ServiceDetails,
   ServiceExpert,
   ServiceReference,
+  ServiceTopology,
 } from "@/types/api";
 import type { Service, Team } from "@/types/graph";
 
@@ -48,6 +49,45 @@ export class ServiceRepository {
       return result.records.map((record) =>
         nodeProperties<Service>(record.get("service")),
       );
+    } catch (error) {
+      return withDatabaseError(error);
+    } finally {
+      await session.close();
+    }
+  }
+
+  async getTopology(): Promise<ServiceTopology> {
+    const session = this.driver.session({ defaultAccessMode: neo4j.session.READ });
+
+    try {
+      return await session.executeRead(async (transaction) => {
+        const nodeResult = await transaction.run(`
+          MATCH (service:Service)
+          RETURN service
+          ORDER BY service.name
+        `);
+        const edgeResult = await transaction.run(`
+          MATCH (source:Service)-[dependency:DEPENDS_ON]->(target:Service)
+          RETURN
+            source.id AS source,
+            target.id AS target,
+            dependency.dependencyType AS dependencyType,
+            dependency.critical AS critical
+          ORDER BY source.name, target.name
+        `);
+
+        return {
+          nodes: nodeResult.records.map((record) =>
+            nodeProperties<Service>(record.get("service")),
+          ),
+          edges: edgeResult.records.map((record) => ({
+            source: record.get("source"),
+            target: record.get("target"),
+            dependencyType: record.get("dependencyType"),
+            critical: record.get("critical"),
+          })),
+        };
+      });
     } catch (error) {
       return withDatabaseError(error);
     } finally {
